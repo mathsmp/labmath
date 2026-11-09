@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lab Maya Matematika — Geometri Ruang &amp; Transformasi</title>
+<meta name="description" content="Laboratorium maya interaktif untuk belajar Geometri, Bangun Ruang, dan Teorema Pythagoras untuk SMP. Dilengkapi login peserta didik & dashboard guru." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand" id="nav-home">
+    <span class="brand-logo">🔺</span>
+    <span class="brand-text">Lab Maya<span class="brand-accent">Matematika</span></span>
+  </div>
+  <nav class="mainnav">
+    <button class="navbtn" id="nav-btn-home" data-target="home">Beranda</button>
+    <button class="navbtn" id="nav-btn-adventure" data-anchor="adventure">Petualangan</button>
+    <button class="navbtn" id="nav-btn-benefits" data-anchor="benefits">Apa yang Kamu Peroleh!</button>
+  </nav>
+  <div class="auth-area" id="auth-area"></div>
+</header>
+
+<main id="app">
+
+  <!-- ===================== HALAMAN BERANDA ===================== -->
+  <section id="page-home" class="page active">
+
+    <!-- Hero dengan gradient & bentuk geometri melayang -->
+    <div class="hero">
+      <div class="hero-shapes" aria-hidden="true">
+        <span class="shape shape-cube"></span>
+        <span class="shape shape-triangle"></span>
+        <span class="shape shape-circle"></span>
+        <span class="shape shape-square"></span>
+        <span class="shape shape-diamond"></span>
+      </div>
+      <div class="hero-inner">
+        <span class="hero-pill">🎮 Pembelajaran Interaktif · Fase D</span>
+        <h1>Belajar Geometri Jadi<br><span class="hero-highlight">Seru &amp; Interaktif</span></h1>
+        <p class="subtitle">Putar, geser, dan ubah objek geometri langsung di layar. Pahami konsep matematika ruang lewat simulasi visual yang bisa kamu coba sendiri — bukan sekadar menghafal rumus!</p>
+        <div class="hero-cta">
+          <button class="btn btn-gold btn-lg open-module" data-target="module1">🚀 Mulai Belajar</button>
+          <button class="btn btn-glass btn-lg" id="hero-see-modules">Lihat Modul ↓</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hs-item"><span class="hs-num">3</span><span class="hs-label">Modul</span></div>
+          <div class="hs-divider"></div>
+          <div class="hs-item"><span class="hs-num">20+</span><span class="hs-label">Simulasi</span></div>
+          <div class="hs-divider"></div>
+          <div class="hs-item"><span class="hs-num">15</span><span class="hs-label">Soal Evaluasi</span></div>
+          <div class="hs-divider"></div>
+          <div class="hs-item"><span class="hs-num">7</span><span class="hs-label">Bangun Ruang 3D</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner login untuk tamu -->
+    <div id="guest-banner" class="guest-banner" style="display:none;">
+      <span class="gb-icon">👋</span>
+      <span class="gb-text">Halo! Masuk atau daftar dulu untuk menyimpan hasil evaluasimu dan biar Gurumu bisa lihat progres belajarmu.</span>
+      <span class="guest-banner-actions">
+        <button class="btn btn-primary" id="banner-login">Masuk</button>
+        <button class="btn btn-secondary" id="banner-register">Daftar</button>
+      </span>
+    </div>
+
+    <!-- Kartu progres peserta didik (hanya muncul jika login sbg siswa) -->
+    <div id="student-progress" class="student-progress" style="display:none;"></div>
+
+    <!-- Judul section modul -->
+    <div class="section-heading" id="adventure">
+      <h2>Pilih Petualanganmu</h2>
+      <p>Tiga modul seru menanti. Klik salah satu untuk mulai menjelajah!</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="menu-card" data-target="module1">
+        <div class="menu-icon icon-blue">🔷</div>
+        <span class="menu-tag">Modul 1</span>
+        <h3>Transformasi Geometri</h3>
+        <p>Refleksi, translasi, rotasi, dan dilatasi objek pada bidang kartesius.</p>
+        <div class="menu-meta">
+          <span class="mm-item">📐 5 Sub-topik</span>
+          <span class="mm-item">✏️ 5 Soal Evaluasi</span>
+        </div>
+        <button class="btn btn-primary open-module" data-target="module1">Mulai →</button>
+      </div>
+      <div class="menu-card" data-target="module2">
+        <div class="menu-icon icon-orange">📦</div>
+        <span class="menu-tag">Modul 2</span>
+        <h3>Bangun Ruang &amp; Jaring-Jaring</h3>
+        <p>Putar bangun ruang 3D, buka jaring-jaringnya, dan hitung luas &amp; volumenya.</p>
+        <div class="menu-meta">
+          <span class="mm-item">🎲 7 Bangun Ruang</span>
+          <span class="mm-item">✏️ 5 Soal Evaluasi</span>
+        </div>
+        <button class="btn btn-primary open-module" data-target="module2">Mulai →</button>
+      </div>
+      <div class="menu-card" data-target="module3">
+        <div class="menu-icon icon-green">📐</div>
+        <span class="menu-tag">Modul 3</span>
+        <h3>Teorema Pythagoras</h3>
+        <p>Buktikan a² + b² = c² secara visual dan terapkan pada studi kasus nyata.</p>
+        <div class="menu-meta">
+          <span class="mm-item">📏 5 Sub-topik</span>
+          <span class="mm-item">✏️ 5 Soal Evaluasi</span>
+        </div>
+        <button class="btn btn-primary open-module" data-target="module3">Mulai →</button>
+      </div>
+    </div>
+
+    <!-- Judul section fitur -->
+    <div class="section-heading" id="benefits">
+      <h2>Apa yang Kamu Peroleh!</h2>
+      <p>Empat keunggulan yang membuat petualangan belajarmu makin seru dan bermakna.</p>
+    </div>
+
+    <!-- Strip fitur -->
+    <div class="feature-strip">
+      <div class="fs-item">
+        <div class="fs-icon">🎯</div>
+        <div><strong>Belajar Sambil Bermain</strong><p>Simulasi interaktif bikin konsep sulit jelas dalam hitungan detik.</p></div>
+      </div>
+      <div class="fs-item">
+        <div class="fs-icon">🏅</div>
+        <div><strong>Lacak Progresmu</strong><p>Skor tersimpan otomatis. Lihat perkembanganmu dari waktu ke waktu.</p></div>
+      </div>
+      <div class="fs-item">
+        <div class="fs-icon">👨‍🏫</div>
+        <div><strong>Diawasi Guru</strong><p>Gurumu bisa memantau hasil &amp; memberi bantuan tepat sasaran.</p></div>
+      </div>
+      <div class="fs-item">
+        <div class="fs-icon">📱</div>
+        <div><strong>Bisa di HP &amp; Laptop</strong><p>Tampilan menyesuaikan layar — belajar di mana saja, kapan saja.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HALAMAN LOGIN ===================== -->
+  <section id="page-login" class="page">
+    <div id="login-mount"></div>
+  </section>
+
+  <!-- ===================== HALAMAN REGISTER ===================== -->
+  <section id="page-register" class="page">
+    <div id="register-mount"></div>
+  </section>
+
+  <!-- ===================== DASHBOARD ADMIN (GURU) ===================== -->
+  <section id="page-admin" class="page">
+    <div class="module-header">
+      <h2>📊 Dashboard Guru</h2>
+      <div class="admin-actions">
+        <button class="btn btn-secondary" id="admin-export">⬇ Export CSV</button>
+        <button class="btn btn-outline" id="admin-refresh">🔄 Muat Ulang</button>
+      </div>
+    </div>
+
+    <!-- Ringkasan statistik -->
+    <div class="stat-grid" id="admin-stats"></div>
+
+    <!-- Filter -->
+    <div class="admin-filters">
+      <div class="control-row" style="margin:0;flex:1;min-width:160px;">
+        <label>Filter Modul</label>
+        <select id="filter-module">
+          <option value="">Semua Modul</option>
+          <option value="Modul 1">Modul 1 — Transformasi</option>
+          <option value="Modul 2">Modul 2 — Bangun Ruang</option>
+          <option value="Modul 3">Modul 3 — Pythagoras</option>
+        </select>
+      </div>
+      <div class="control-row" style="margin:0;flex:1;min-width:160px;">
+        <label>Filter Kelas</label>
+        <select id="filter-kelas">
+          <option value="">Semua Kelas</option>
+        </select>
+      </div>
+      <div class="control-row" style="margin:0;flex:1;min-width:160px;">
+        <label>Cari Nama / NISN</label>
+        <input type="text" id="filter-search" placeholder="Ketik nama atau NISN...">
+      </div>
+    </div>
+
+    <!-- Tabel hasil peserta didik -->
+    <div class="admin-table-wrap">
+      <table class="admin-table" id="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nama</th>
+            <th>NISN</th>
+            <th>Kelas</th>
+            <th>Modul</th>
+            <th>Skor</th>
+            <th>Persentase</th>
+            <th>Waktu</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="admin-table-body"></tbody>
+      </table>
+    </div>
+
+    <!-- Daftar peserta didik terdaftar -->
+    <div class="module-header" style="margin-top:30px;">
+      <h2>👥 Peserta Didik Terdaftar</h2>
+    </div>
+    <div class="admin-table-wrap">
+      <table class="admin-table" id="admin-students-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nama</th>
+            <th>NISN</th>
+            <th>Kelas</th>
+            <th>Username</th>
+            <th>Bergabung</th>
+            <th>Evaluasi Dikerjakan</th>
+          </tr>
+        </thead>
+        <tbody id="admin-students-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== MODUL 1: TRANSFORMASI ===================== -->
+  <section id="page-module1" class="page">
+    <div class="module-header">
+      <h2>Modul 1 &mdash; Transformasi Geometri</h2>
+      <button class="btn btn-guide" data-guide="module1">📖 Panduan</button>
+    </div>
+
+    <div class="tabbar" id="m1-tabs">
+      <button class="tabbtn active" data-tab="refleksi">Refleksi</button>
+      <button class="tabbtn" data-tab="translasi">Translasi</button>
+      <button class="tabbtn" data-tab="rotasi">Rotasi</button>
+      <button class="tabbtn" data-tab="dilatasi">Dilatasi</button>
+      <button class="tabbtn" data-tab="kombinasi">Kombinasi</button>
+      <button class="tabbtn" data-tab="kuis1">Evaluasi</button>
+    </div>
+
+    <div class="workspace">
+      <div class="canvas-wrap">
+        <canvas id="m1-canvas" width="800" height="450"></canvas>
+      </div>
+      <div class="controls-panel" id="m1-controls"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MODUL 2: BANGUN RUANG ===================== -->
+  <section id="page-module2" class="page">
+    <div class="module-header">
+      <h2>Modul 2 &mdash; Bangun Ruang &amp; Jaring-Jaring</h2>
+      <button class="btn btn-guide" data-guide="module2">📖 Panduan</button>
+    </div>
+
+    <div class="gallery" id="m2-gallery">
+      <button class="gallery-item active" data-shape="kubus">Kubus</button>
+      <button class="gallery-item" data-shape="balok">Balok</button>
+      <button class="gallery-item" data-shape="prisma">Prisma Segitiga</button>
+      <button class="gallery-item" data-shape="limas">Limas Segiempat</button>
+      <button class="gallery-item" data-shape="tabung">Tabung</button>
+      <button class="gallery-item" data-shape="kerucut">Kerucut</button>
+      <button class="gallery-item" data-shape="bola">Bola</button>
+    </div>
+
+    <div class="tabbar" id="m2-tabs">
+      <button class="tabbtn active" data-tab="model3d">Model 3D</button>
+      <button class="tabbtn" data-tab="jaring">Jaring-Jaring</button>
+      <button class="tabbtn" data-tab="volume">Simulasi Volume</button>
+      <button class="tabbtn" data-tab="kuis2">Evaluasi</button>
+    </div>
+
+    <div class="workspace">
+      <div class="canvas-wrap">
+        <canvas id="m2-canvas" width="800" height="450"></canvas>
+        <p class="hint" id="m2-hint">🖱️ Seret / geser untuk memutar bangun</p>
+      </div>
+      <div class="controls-panel" id="m2-controls"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MODUL 3: PYTHAGORAS ===================== -->
+  <section id="page-module3" class="page">
+    <div class="module-header">
+      <h2>Modul 3 &mdash; Teorema Pythagoras</h2>
+      <button class="btn btn-guide" data-guide="module3">📖 Panduan</button>
+    </div>
+
+    <div class="tabbar" id="m3-tabs">
+      <button class="tabbtn active" data-tab="bukti">Pembuktian Visual</button>
+      <button class="tabbtn" data-tab="kalkulator">Kalkulator Sisi</button>
+      <button class="tabbtn" data-tab="studikasus">Studi Kasus</button>
+      <button class="tabbtn" data-tab="jarak">Jarak Dua Titik</button>
+      <button class="tabbtn" data-tab="galeri">Galeri Tripel</button>
+      <button class="tabbtn" data-tab="kuis3">Evaluasi</button>
+    </div>
+
+    <div class="workspace">
+      <div class="canvas-wrap">
+        <canvas id="m3-canvas" width="800" height="450"></canvas>
+      </div>
+      <div class="controls-panel" id="m3-controls"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Modal panduan sederhana -->
+<div class="modal-overlay" id="guide-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="guide-close">✕</button>
+    <h3 id="guide-title">Panduan</h3>
+    <div id="guide-body"></div>
+    <button class="btn btn-primary" id="guide-ok">Mengerti, mulai eksplorasi!</button>
+  </div>
+</div>
+
+<!-- Modal greeting setelah evaluasi selesai -->
+<div class="modal-overlay greeting-overlay" id="greeting-modal">
+  <div class="modal-box greeting-box">
+    <button class="modal-close" id="greet-close">✕</button>
+    <div class="greet-emoji" id="greet-emoji">🎉</div>
+    <h3 id="greet-title">Selamat!</h3>
+    <p id="greet-module-wrap" class="greet-module-wrap" style="display:none;">
+      Modul: <span id="greet-module"></span>
+    </p>
+    <div id="greet-score" class="greet-score"></div>
+    <div id="greet-body" class="greet-body"></div>
+    <div class="greet-actions">
+      <button class="btn btn-secondary" id="greet-review">📊 Lihat Progres Saya</button>
+      <button class="btn btn-primary" id="greet-ok">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- Canvas overlay untuk efek konfeti -->
+<canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">🔺 Lab Maya Matematika</div>
+    <div class="footer-text">Media pembelajaran interaktif untuk SMP — Jenjang VII, VIII &amp; IX · Fase D</div>
+    <div class="footer-meta">© 2026</div>
+  </div>
+</footer>
+
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/engine3d.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/module1.js"></script>
+<script src="js/module2.js"></script>
+<script src="js/module3.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
